@@ -12,9 +12,9 @@ def env_info(env_name):
         action_space = env.action_space.shape[0]
     env.close()
     return observation_space, action_space
-
+get_reward = None
 def make_get_reward(env_name, model, _render):
-
+    global   get_reward
     def get_reward(weights, render=_render):
         env = gym.make(env_name)
         #global model
@@ -22,7 +22,7 @@ def make_get_reward(env_name, model, _render):
         # here our best reward is zero
         reward = 0
         obs = env.reset()
-        for step in range(300):
+        for step in range(1000):
             if render:
                 env.render()
             #print(model.predict(obs))
@@ -34,6 +34,8 @@ def make_get_reward(env_name, model, _render):
             if done:
                 #print(step)
                 break
-        env.close()    
+        env.close()
+        #env.reset()
+        #env.reset()    
         return reward
     return get_reward

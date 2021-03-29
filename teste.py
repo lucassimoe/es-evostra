@@ -13,13 +13,12 @@ observationSpace, actionSpace = env_info(args.env)
 
 
 # A feed forward neural network with input size of 5, two hidden layers of size 4 and output of size 3
-model = FeedForwardNetwork(layer_sizes=[observationSpace, 256, 128, actionSpace])
-
+model = FeedForwardNetwork(layer_sizes=[observationSpace, 64, 32,32,16, actionSpace])
 
 with open(args.env +".pkl",'rb') as fp:
     model.set_weights(pickle.load(fp))
 
-get_reward=make_get_reward(args.env, model)
+get_reward=make_get_reward(args.env, model,args.env)
 while True:    
     print(get_reward(model.get_weights(),True))
     

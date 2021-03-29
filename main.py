@@ -2,7 +2,6 @@ from evostra import EvolutionStrategy
 from evostra.models import FeedForwardNetwork
 import pickle
 from environment import make_get_reward, env_info
-import gym
 
 
 import argparse
@@ -15,9 +14,8 @@ args = parser.parse_args()
 
 observationSpace, actionSpace = env_info(args.env)
 
-
 # A feed forward neural network with input size of 5, two hidden layers of size 4 and output of size 3
-model = FeedForwardNetwork(layer_sizes=[observationSpace, 256, 128, actionSpace])
+model = FeedForwardNetwork(layer_sizes=[observationSpace, 32, 16, actionSpace])
 
 
 get_reward = make_get_reward(args.env, model,args.render)
@@ -28,6 +26,6 @@ es = EvolutionStrategy(model.get_weights(), get_reward, population_size=20, sigm
 es.run(1000, print_step=100)
 with open(args.env +".pkl", 'wb') as fp:
     pickle.dump(es.get_weights(), fp)
-while True:
-    print(get_reward(es.get_weights(),True))
+#while True:
+#   print(get_reward(es.get_weights(),True))
     
