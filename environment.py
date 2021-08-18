@@ -2,6 +2,7 @@ import numpy as np
 import gym
 from gym.spaces.discrete import Discrete
 
+
 def env_info(env_name):
     env = gym.make(env_name)
 
