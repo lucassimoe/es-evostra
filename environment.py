@@ -27,7 +27,7 @@ def make_get_reward(env_name, model, _render):
             if render:
                 env.render()
             #print(model.predict(obs))
-            action = np.argmax(model.predict(obs)) # your agent here (this takes random actions)
+            action = model.predict(obs) # your agent here (this takes random actions)
 
             obs, rew, done, info = env.step(action)
             reward+=rew
